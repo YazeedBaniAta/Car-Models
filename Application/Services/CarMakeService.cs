@@ -41,10 +41,7 @@ public class CarMakeService : ICarMakeService
                 var jsonResponse = await httpResponse.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<CarModelsResponseDto>(jsonResponse);
 
-                foreach (var model in result?.Results!)
-                {
-                    carModels.Add(model.Model_Name);
-                }
+                carModels = result?.Results.Select(a=>a.Model_Name).ToList()!;
 
                 return carModels;
             });
